@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Student Management System{% endblock %}</title>
+</head>
+<nav>
+  <a href="/">Home</a> 
+  <a href="{% url 'send_message' %}">Send Message</a>
+  <a href="{% url 'message_list' %}">
+    Messages {% if message_count %}🔔 ({{ message_count }}){% endif %}
+  </a>
+  <a href="{% url 'attendance_report' %}">Attendance Report</a>
+  <a href="{% url 'grade_summary_report' %}">Grade Report</a>
+
+</nav>
+
+<body>
+    <h1>Student Management System</h1>
+    <div>
+        {% block content %}
+        <!-- Page-specific content will go here -->
+        {% endblock %}
+    </div>
+</body>
+</html>

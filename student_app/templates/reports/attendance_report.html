@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Attendance Report</h2>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Present</th>
+        <th>Absent</th>
+        <th>Attendance %</th>
+    </tr>
+    {% for row in report_data %}
+    <tr>
+        <td>{{ row.student.first_name }} {{ row.student.last_name }}</td>
+        <td>{{ row.present }}</td>
+        <td>{{ row.absent }}</td>
+        <td>{{ row.percentage }}%</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

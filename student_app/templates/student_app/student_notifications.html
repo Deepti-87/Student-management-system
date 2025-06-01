@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ student.name }}'s Notifications</title>
+</head>
+<body>
+    <h1>Notifications for {{ student.name }}</h1>
+
+    {% if messages %}
+        <ul>
+            {% for msg in messages %}
+                <li style="{% if not msg.read %}font-weight: bold;{% endif %}">
+                    <strong>{{ msg.subject }}</strong><br>
+                    {{ msg.body }}<br>
+                    <small>Sent at {{ msg.created_at }}</small>
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No messages.</p>
+    {% endif %}
+
+    <a href="{% url 'student_list' %}">Back to Student List</a>
+    <a href="{% url 'send_message' student.id %}">Send New Message</a>
+</body>
+</html>

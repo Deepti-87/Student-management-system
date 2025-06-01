@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Welcome to Student Management System</h1>
+
+  <h3>🔔 Recent Messages</h3>
+  <ul>
+    {% for msg in recent_messages %}
+      <li>
+        <strong>{{ msg.subject }}</strong> to {{ msg.student.name }}<br>
+        {{ msg.body|truncatechars:100 }}
+      </li>
+    {% empty %}
+      <li>No new messages.</li>
+    {% endfor %}
+  </ul>
+
+  <!-- Rest of the dashboard -->
+{% endblock %}

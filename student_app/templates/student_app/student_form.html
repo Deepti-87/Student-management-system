@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Form</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            background-color: #f1f1f1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+
+        button, .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover, .btn:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Student Form</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+        <div class="form-group">
+            {{ form.enrollment_date.label_tag }}
+            {{ form.enrollment_date }}
+        </div>
+        <div class="buttons">
+            <a href="{% url 'student_list' %}" class="btn">Back to List</a>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

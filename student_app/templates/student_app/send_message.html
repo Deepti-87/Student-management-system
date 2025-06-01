@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Send Message to {{ student.name }}</title>
+</head>
+<body>
+    <h1>Send Message to {{ student.name }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send</button>
+    </form>
+
+    <a href="{% url 'student_notifications' student.id %}">Back to Notifications</a>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<h2>Messages</h2>
+<ul>
+    {% for message in messages %}
+        <li>
+            <strong>{{ message.student.name }}</strong>: {{ message.subject }} <br>
+            {{ message.body }} <br>
+            <small>{{ message.created_at }}</small>
+        </li>
+    {% endfor %}
+</ul>

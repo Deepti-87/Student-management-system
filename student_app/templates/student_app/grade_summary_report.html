@@ -1,0 +1,45 @@
+{% extends 'student_app/base.html' %}
+{% block content %}
+<h2>Grade Summary Report</h2>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<h2>Average Grade per Subject</h2>
+<canvas id="gradeChart" width="400" height="200"></canvas>
+
+<script>
+    const ctx = document.getElementById('gradeChart').getContext('2d');
+    const gradeChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ subjects|safe }},
+            datasets: [{
+                label: 'Average Score',
+                data: {{ averages|safe }},
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }
+        }
+    });
+</script>
+
+<table border="1">
+  <tr>
+    <th>Student Name</th>
+    <th>Average Grade</th>
+  </tr>
+  {% for record in grade_summary %}
+  <tr>
+    <td>{{ record.student__name }}</td>
+    <td>{{ record.average_grade|floatformat:2 }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

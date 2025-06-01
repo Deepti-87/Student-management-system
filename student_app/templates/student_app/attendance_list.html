@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Attendance Records</h2>
+<a href="{% url 'add_attendance' %}" class="btn btn-success">+ Add Attendance</a>
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Student</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in attendance_records %}
+        <tr>
+            <td>{{ record.student.name }}</td>
+            <td>{{ record.date }}</td>
+            <td>{{ record.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Reports & Analytics</h2>
+
+<h3>Students</h3>
+<ul>
+  {% for student in students %}
+    <li>{{ student.first_name }} {{ student.last_name }}</li>
+  {% endfor %}
+</ul>
+
+<h3>Attendance Summary</h3>
+<ul>
+  {% for record in attendance_summary %}
+    <li>Student ID {{ record.student }} - {{ record.total }} sessions</li>
+  {% endfor %}
+</ul>
+
+<h3>Grades</h3>
+<ul>
+  {% for grade in grades %}
+    <li>{{ grade.student.first_name }} - {{ grade.subject.name }}: {{ grade.score }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

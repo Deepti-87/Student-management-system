@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student List</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        body {
+            background-color: #f2f4f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        @media (min-width: 600px) {
+            .search-form {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .search-form input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .search-form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .search-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .top-buttons {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .top-buttons a {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .top-buttons a:hover {
+            background-color: #1e7e34;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        .card p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn.delete {
+            background-color: #dc3545;
+        }
+
+        .btn.delete:hover {
+            background-color: #b52a37;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Student List</h2>
+
+    <!-- Add Button -->
+    <div class="top-buttons">
+    <a href="{% url 'student_create' %}">+ Add Student</a>
+    <a href="{% url 'export_students_csv' %}" style="background-color: #17a2b8; margin-left: 10px;">⬇ Export CSV</a>
+    <a href="{% url 'export_students_excel' %}?q={{ request.GET.q }}" class="ml-2">⬇ Export Search Results</a>
+    <a href="{% url 'export_students_excel' %}">Export to Excel</a>
+
+</div>
+
+
+    <!-- Search Form -->
+    <form method="get" class="search-form">
+        <input type="text" name="q" placeholder="Search by name or email..." value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Student Cards -->
+    <div class="card-grid">
+        {% for student in students %}
+        <div class="card">
+            <h3>{{ student.name }}</h3>
+            <p><strong>Email:</strong> {{ student.email }}</p>
+            <p><strong>Enrollment:</strong> {{ student.enrollment_date }}</p>
+            <div class="actions">
+                <a href="{% url 'edit_student' student.id %}" class="btn">Edit</a>
+                <a href="{% url 'student_delete' student.id %}" class="btn delete">Delete</a>
+                <a href="{% url 'student_notifications' student.id %}" class="btn" style="background-color: #6c757d;">Notifications</a>
+            </div>
+        </div>
+        {% empty %}
+        <p>No students found.</p>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
